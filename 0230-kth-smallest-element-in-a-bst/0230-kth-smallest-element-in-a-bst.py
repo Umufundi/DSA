@@ -7,19 +7,21 @@
 import heapq
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        
-        heap =[]
+        self.k = k
+        self.result = None
         
         def helper(root):
-            if not root:
+            if not root or self.k == 0:
                 return
-            heapq.heappush(heap,root.val)
+            
             helper(root.left)
+            self.k -=1
+            if self.k == 0:
+                self.result = root.val
             helper(root.right)
         helper(root)
-        for _ in range(k-1):
-            heapq.heappop(heap)
-        return heapq.heappop(heap)
+        
+        return self.result
             
             
         
