@@ -5,31 +5,27 @@
 #         self.left = left
 #         self.right = right
 
-from collections import deque 
 class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return None
         
-        queue = deque()
-        queue.append(root)
         result =[]
         
-        while queue:
-            level_node = []
-            lenght = len(queue)
+        
+        def helper(root, level, result):
             
-            for _ in range(lenght):
-                node = queue.popleft()
-                level_node.append(node.val)
-                
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            result.append(level_node)
+            if not root:
+                return 
             
-        return reversed(result)
-                
+            if len(result) == level:
+                result.append([])
+            
+            result[level].append(root.val)
+            helper(root.left, level+1, result)
+            helper(root.right, level+1, result)
+            
+        helper(root, 0, result)
+        return result[::-1]
+            
+    
         
         
