@@ -1,6 +1,6 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        
-        return x ** n
+        num = x ** n
+        return float(f'{num:.5f}')
     
         
