@@ -34,21 +34,21 @@ class Solution:
             if r == m - 1 and c == n - 1:
                 return 1
             
-            # Memoization: If already visited, return the stored result
-            if dp[r][c] != -1:
-                return dp[r][c]
+            # If already visited, return the stored result
+            if (r, c) in memo:
+                return memo[(r, c)]
             
             # Recursive DFS to explore right and down directions
             right = dfs(r, c + 1)
             down = dfs(r + 1, c)
             
-            # Update and store the result in the memoization table
-            dp[r][c] = right + down
+            # Update and store the result in the memoization dictionary
+            memo[(r, c)] = right + down
             
-            return dp[r][c]
+            return memo[(r, c)]
         
-        # Initialize memoization table with -1
-        dp = [[-1] * n for _ in range(m)]
+        # Initialize memoization dictionary
+        memo = {}
         
         # Start DFS from the top-left corner
         return dfs(0, 0)
