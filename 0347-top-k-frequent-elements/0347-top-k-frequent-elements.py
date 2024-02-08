@@ -42,7 +42,7 @@ class Solution:
             
         return ans
 
-'''   
+   
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
@@ -62,3 +62,26 @@ class Solution:
                     return res
 
         # O(n)
+'''
+
+from collections import Counter
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        # Step 1: Count the frequency of each element in nums
+        frequency_map = Counter(nums)
+        
+        # Step 2: Create buckets to store elements based on their frequency
+        max_frequency = max(frequency_map.values())
+        buckets = [[] for _ in range(max_frequency + 1)]
+        for num, freq in frequency_map.items():
+            buckets[freq].append(num)
+        
+        # Step 3: Retrieve the top k frequent elements from the buckets
+        result = []
+        for bucket in reversed(buckets):
+            result.extend(bucket)
+            if len(result) >= k:
+                break
+        
+        return result[:k]
